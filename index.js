@@ -145,4 +145,3 @@ bot.command("text", (ctx) => {
 
 
 bot.launch();
-bot.listen(process.env.PORT || 5000);
