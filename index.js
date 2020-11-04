@@ -24,7 +24,7 @@ const channel = "@NoSho_PT"
 
 let interval;
 
-const bot = new Telegraf("1454925277:AAG6gIrAX8yYpjEQHxEYZpHGM0ByUqrDhZ4", {channelMode: true})
+const bot = new Telegraf("1394341645:AAGWawjsbQ1uiLaE73refdk7-rvVg2PL8KE", {channelMode: true})
 
 bot.start( (ctx) => {
 	
