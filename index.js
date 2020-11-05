@@ -34,7 +34,7 @@ bot.start( (ctx) => {
     ctx.reply("Rules of the club\n\nHowdy "+nome+" ! Thanks for getting me started ! You are now officially a part of NoSho. Welcome to the club 👏🏼👏🏼 Bra-vo!\n\nAt NoSho we want to provide you with last minute table availability in the most popular places in town. So you can spontaneously book seats if you suddenly decide to go out for a meal or even if you like to be surprised by what will be on offer. \n\nHere’s how this works. Whenever a restaurant has a last minute availability, I will message the channel and let all the members know. The message will state the name of the restaurant, table for how many, what time and if you’re lucky, some promo too. All you have to do is press the Book button that follows the message. Be fast and be decisive, as you will be competing against the other members of the NoSho club. \n\nIf you win, you will get notified by me, to send your contact to the restaurant in order to validade your reservation. You then have until the reservation hour to show up, which depending on how last minute it is, can mean just some mere minutes. Unless you reach a time agreement with the restaurant. \n\nNow "+nome+ ", a word of notice though, please don’t book if your intentions aren’t to attend that restaurant ! We don’t want you to be the party pooper of the club 😉 \n\nThat’s all from me at this point ! So, I wish you good luck with your bookings. May the food be with you ! 😎"	
 	)
 	
-	bot.telegram.sendMessage(inesuser, "User "+nome+ has just registered")
+	bot.telegram.sendMessage(inesuser, "User "+nome+ " has just registered")
 })
 
 
