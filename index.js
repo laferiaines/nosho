@@ -156,7 +156,7 @@ bot.command("text", (ctx) => {
             ctx.reply("Message sent! ")
             bot.telegram.sendMessage(channel,message)
         } else {
-            ctx.reply("Invalid syntax! ")
+            ctx.reply("Invalid syntax ! ")
         }
     }
 })
