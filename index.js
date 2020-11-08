@@ -152,8 +152,7 @@ console.log(restaurant);
 															console.log("nrMembers: "+nrMembers)
 															bot.telegram.sendMessage(userId,"Congratulations "+firstName+ " 👏🏼 you were the fastest among "+nrMembers+" subscribers of NoSho club to book \""+restaurant+"\" !\n\nTo confirm this table of "+nrPessoas+" at "+hora+ ", we need you to provide your contact details to \""+restaurant+"\". Your contact will not be stored anywhere and will only be seen by the restaurant host.\n\nJust press the button below 👇🏼", 
 		Extra.markup((markup) => {
-			return markup.resize()
-				.keyboard([
+			return markup.keyboard([
 					markup.contactRequestButton('Send contact')
 					])
 				.oneTime()
