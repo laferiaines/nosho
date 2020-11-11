@@ -37,7 +37,7 @@ bot.start( (ctx) => {
 })
 
 
-bot.command("nosho2", (ctx) => {
+bot.command("nosho", (ctx) => {
 	
 	const sellerId = ctx.chat.id
 	
