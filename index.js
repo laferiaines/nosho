@@ -45,7 +45,7 @@ const chatsplit = ":~!~~~!~:";
 
 let interval;
 
-const bot = new Telegraf("1481791998:AAFS9WU9TQSiEF7FHaiagZL10D-HqvlpSRk")
+const bot = new Telegraf("1394341645:AAHZSiEm2kw9Zxm3kOa3ghtEY2CGZ5n3C5M")
 
 bot.start( (ctx) => {
 	
