@@ -2,12 +2,30 @@ const Telegraf = require("telegraf");
 const fs = require("fs");
 const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
-
+const { Client } = require('pg');
 
 const cool = require('cool-ascii-faces');
 const express = require('express');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
+
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL
+});
+
+client.connect();
+
+//client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+client.query('SELECT * FROM users;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(row);
+  }
+  client.end();
+});
+
+
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -730,12 +748,12 @@ bot.action(/[0-9]/, (ctx) => {
 					if ( infoCliente.idioma == 'en') {
 					
 						//Mensagem para o user que reservou
-						bot.telegram.sendMessage(userId,"Congratulations "+firstName+" 👏🏼 you were the fastest of all members of the NoSho club to book \""+restaurant+"\" for "+nrPessoas+" people at "+hora+ " !\n\nYour contact has been sent to the restaurant and they are awaiting your arrival. Thank you and enjoy your meal !")
+						bot.telegram.sendMessage(userId,"Congratulations "+infoCliente.primeiro_nome+" 👏🏼 you were the fastest of all members of the NoSho club to book \""+restaurant+"\" for "+nrPessoas+" people at "+hora+ " !\n\nYour contact has been sent to the restaurant and they are awaiting your arrival. Thank you and enjoy your meal !")
 					
 					}
 					else {
 						//Mensagem para o user que reservou
-						bot.telegram.sendMessage(userId,"Parabéns "+firstName+" 👏🏼 foi o mais rápido a ganhar este NoSho 👏🏼👏🏼 O restaurante \""+restaurant+"\" para "+nrPessoas+" pessoas às "+hora+ " ficou reservado em seu nome e o seu contacto foi partilhado com o mesmo. Por favor não se atrase 😎 \n\nCaso deseje cancelar esta reserva, pedimos que entre urgentemente em contacto com o restaurante para o avisar. \n\nObrigado e desejamos-lhe uma boa refeição !")
+						bot.telegram.sendMessage(userId,"Parabéns "+infoCliente.primeiro_nome+" 👏🏼 foi o mais rápido a ganhar este NoSho 👏🏼👏🏼 O restaurante \""+restaurant+"\" para "+nrPessoas+" pessoas às "+hora+ " ficou reservado em seu nome e o seu contacto foi partilhado com o mesmo. Por favor não se atrase 😎 \n\nCaso deseje cancelar esta reserva, pedimos que entre urgentemente em contacto com o restaurante para o avisar. \n\nObrigado e desejamos-lhe uma boa refeição !")
 					}	
 				}
 				else {
@@ -743,12 +761,12 @@ bot.action(/[0-9]/, (ctx) => {
 					if ( infoCliente.idioma == 'en') {
 					
 						//Mensagem para o user que reservou
-						bot.telegram.sendMessage(userId,"Congratulations "+firstName+" 👏🏼 you were the fastest of all members of the NoSho club to book \""+restaurant+"\" for "+nrPessoas+" people at "+hora+ " with a "+promo+ " discount on all food served (drinks not included). \n\nYour contact has been sent to the restaurant and they are awaiting your arrival. Please don’t be late 😎 in case you wish to cancel, please contact the restaurant to let them know ASAP.\n\nThank you and enjoy your meal !")
+						bot.telegram.sendMessage(userId,"Congratulations "+infoCliente.primeiro_nome+" 👏🏼 you were the fastest of all members of the NoSho club to book \""+restaurant+"\" for "+nrPessoas+" people at "+hora+ " with a "+promo+ " discount on all food served (drinks not included). \n\nYour contact has been sent to the restaurant and they are awaiting your arrival. Please don’t be late 😎 in case you wish to cancel, please contact the restaurant to let them know ASAP.\n\nThank you and enjoy your meal !")
 					
 					}
 					else {
 						//Mensagem para o user que reservou
-						bot.telegram.sendMessage(userId,"Parabéns "+firstName+" 👏🏼 foi o mais rápido a ganhar este NoSho 👏🏼👏🏼 O restaurante \""+restaurant+"\" para "+nrPessoas+" às "+hora+ ", e com uma promoção de " +promo+" na carta (bebidas não incluidas), ficou reservado em seu nome e o seu contacto foi partilhado com o mesmo. Por favor não se atrase 😎 \n\nCaso deseje cancelar esta reserva, pedimos que entre urgentemente em contacto com o restaurante para o avisar. \n\nObrigado e desejamos-lhe uma boa refeição !")
+						bot.telegram.sendMessage(userId,"Parabéns "+infoCliente.primeiro_nome+" 👏🏼 foi o mais rápido a ganhar este NoSho 👏🏼👏🏼 O restaurante \""+restaurant+"\" para "+nrPessoas+" às "+hora+ ", e com uma promoção de " +promo+" na carta (bebidas não incluidas), ficou reservado em seu nome e o seu contacto foi partilhado com o mesmo. Por favor não se atrase 😎 \n\nCaso deseje cancelar esta reserva, pedimos que entre urgentemente em contacto com o restaurante para o avisar. \n\nObrigado e desejamos-lhe uma boa refeição !")
 					}	
 				}	
 					//Mensagem para o restaurante
