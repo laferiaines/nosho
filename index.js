@@ -183,7 +183,7 @@ bot.command("nosho", (ctx) => {
 				}
 				else{
 					
-					bot.telegram.sendMessage(sellerId, "Por favor, registe se primeiro como Restaurante. Obrigado.", opts)
+					bot.telegram.sendMessage(sellerId, "Por favor, registe se primeiro como Restaurante. Obrigado.")
 					
 				}
 				client.release();
