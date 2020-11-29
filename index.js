@@ -1088,9 +1088,9 @@ function
 	
 		pool.connect()
 		.then(client => {
-			return client.query('SELECT FROM users where chatid = '+chatid+ ';', (err, res) => {
+			return client.query('SELECT FROM restaurantes where chatid = '+chatid+ ';', (err, res) => {
 					
-					console.log('SELECT FROM users where chatid = '+chatid+ ';')
+					console.log('SELECT FROM restaurantes where chatid = '+chatid+ ';')
 					client.release();
 					if (R.head(R.values(res.rows))) {
 						console.log("Rest já existe")	
