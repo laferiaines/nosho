@@ -108,28 +108,31 @@ bot.command("help", (ctx) => {
 		.then(client => {
 			return client.query('SELECT * FROM users where chatid = '+userId+ ';', (err, res) => {
 		if (err) throw err;
-	
-		let idioma = R.head(R.values(res.rows)).idioma
+		if (R.head(R.values(res.rows))) {
 		
-		if (idioma == 'en') {
-			bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
-																		"inline_keyboard": [[
-																		{
-																			"text": "Next",
-																			"callback_data": "help 0 en"            
-																		}]]
-																		}});
-		}
-		else {
-			bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
-																		"inline_keyboard": [[
-																		{
-																			"text": "Próximo",
-																			"callback_data": "help 0 pt"            
-																		}]]
-																		}});
+			let idioma = R.head(R.values(res.rows)).idioma
 			
-		}
+			if (idioma == 'en') {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/ByKsk1k', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Next",
+																				"callback_data": "help 0 en"            
+																			}]]
+																			}});
+			}
+			else {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/BCMJ4nL', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Próximo",
+																				"callback_data": "help 0 pt"            
+																			}]]
+																			}});
+				
+			}
+		}		
+		client.release()
 		})})		
 })
 
@@ -299,15 +302,14 @@ bot.on('message', (ctx) => {
 			
 			updateUserInfo(from, 'email', ctx.message.text)
 	
-			bot.telegram.sendMessage(from, "Parabéns "+primeiroNome+" 👏🏼 Bem vindo ao clube NoSho. Aqui reina a espontaneidade e a liberdade de não fazer planos. Irá receber uma notificação sempre que um dos nossos restaurantes aderentes tiver uma mesa vaga de última hora. Nessa notificação, ao qual chamamos de “NoShos”, terá a oportunidade de efectuar a reserva e se tiver sorte, ainda recebe um desconto 😎 \n\nÀ hora que quiser comer fora, abra este chat, e esteja atento aos NoShos que podem surgir. Se vir uma oportunidade que lhe interesse, só precisa de carregar no botão “Reservar”. Será imediatamente avisado se ganhou... ou se perdeu 😁 Em caso de vitória, tem até à hora da reserva para comparecer no restaurante.")
+			bot.telegram.sendMessage(from, 	"Parabéns "+primeiroNome+ "👏🏼 está registado e pronto a usufruir do NoSho. Para perceber como isto aqui funciona, deixe-me convidá-lo para um tutorial muito rápido. É só clicar /help")
 			
 		}
 		else if (replyTo == "Please type your email:") {
 			
 			updateUserInfo(from, 'email', ctx.message.text)
 	
-			bot.telegram.sendMessage(from, "Congratulations "+primeiroNome+ " 👏🏼 you are now a member of Club NoSho, the place where the freedom of not making pre-arrangements and spontaneity rules. You will be notified with an alert anytime one of our member restaurants have a last minute table availability. On these alerts, that we like to call “NoSho’s”, you will have the chance to book said restaurant and, if you’re lucky, even receive a discount 😎\n\nClose to the time you wish to dine out, open this chat and be on alert for the NoSho’s that will pop up. If you see one that interests you, just press the “Book” button. You will be immediately notified if you won... or lost 😁 In case of a successful book, you must then show up at the restaurant on the allocated time.")
-			
+			bot.telegram.sendMessage(from, "Congratulations "+primeiroNome+ " 👏🏼 you are now ready to use NoSho. To better understand how things work around here, let me invite you to a quick tutorial tour. Just press /help")
 		}		
 		
 	
@@ -362,6 +364,11 @@ bot.action(/[0-9]/, (ctx) => {
 	console.log(command)
 	
 	if (command == 'help'){
+		
+		try {
+			ctx.deleteMessage()
+		} catch (err) { console.log("")}
+		
 		const userId = ctx.update.callback_query.from.id
 		const msg = ctx.update.callback_query.data.split(" ")
 		
@@ -375,7 +382,7 @@ bot.action(/[0-9]/, (ctx) => {
 			let idioma = R.head(R.values(res.rows)).idioma
 			
 			if (idioma == 'en') {
-				bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/nB9tdtF', { "reply_markup": {
 																			"inline_keyboard": [[
 																			{
 																				"text": "Next",
@@ -384,7 +391,7 @@ bot.action(/[0-9]/, (ctx) => {
 																			}});
 			}
 			else {
-				bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/tLd43xC', { "reply_markup": {
 																			"inline_keyboard": [[
 																			{
 																				"text": "Próximo",
@@ -405,7 +412,7 @@ bot.action(/[0-9]/, (ctx) => {
 			let idioma = R.head(R.values(res.rows)).idioma
 			
 			if (idioma == 'en') {
-				bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/ngtGZgp', { "reply_markup": {
 																			"inline_keyboard": [[
 																			{
 																				"text": "Next",
@@ -414,7 +421,7 @@ bot.action(/[0-9]/, (ctx) => {
 																			}});
 			}
 			else {
-				bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/tzbvzy9', { "reply_markup": {
 																			"inline_keyboard": [[
 																			{
 																				"text": "Próximo",
@@ -427,9 +434,106 @@ bot.action(/[0-9]/, (ctx) => {
 			
 			
 		}
-	
+		else if (msg[1] == 2) {
+			
+			pool.connect()
+			.then(client => {
+				return client.query('SELECT * FROM users where chatid = '+userId+ ';', (err, res) => {
+			if (err) throw err;
+		
+			let idioma = R.head(R.values(res.rows)).idioma
+			
+			if (idioma == 'en') {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/bdvkBLt', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Next",
+																				"callback_data": "help 3 en"            
+																			}]]
+																			}});
+			}
+			else {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/P5Pd03w', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Próximo",
+																				"callback_data": "help 3 pt"            
+																			}]]
+																			}});
+				
+			}
+			})})	
+			
+			
+		}
+		else if (msg[1] == 3) {
+			
+			pool.connect()
+			.then(client => {
+				return client.query('SELECT * FROM users where chatid = '+userId+ ';', (err, res) => {
+			if (err) throw err;
+		
+			let idioma = R.head(R.values(res.rows)).idioma
+			
+			if (idioma == 'en') {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/0jFHgL8', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Next",
+																				"callback_data": "help 4 en"            
+																			}]]
+																			}});
+			}
+			else {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/vsQzgT0', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Próximo",
+																				"callback_data": "help 4 pt"            
+																			}]]
+																			}});
+				
+			}
+			})})	
+			
+			
+		}
+		else if (msg[1] == 4) {
+			
+			pool.connect()
+			.then(client => {
+				return client.query('SELECT * FROM users where chatid = '+userId+ ';', (err, res) => {
+			if (err) throw err;
+		
+			let idioma = R.head(R.values(res.rows)).idioma
+			
+			if (idioma == 'en') {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/fnGFYhs', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "The end",
+																				"callback_data": "help 5 en"            
+																			}]]
+																			}});
+			}
+			else {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/gzFmxfR', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Fim",
+																				"callback_data": "help 5 pt"            
+																			}]]
+																			}});
+				
+			}
+			})})	
+			
+			
+		}
+		else{
+			console.log('Fim tutoria')
+		}
 	}
-	
 	
 	else if (command == "register") {
 	
