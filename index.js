@@ -46,6 +46,11 @@ let currentSells = []
 
 const bot = new Telegraf("1394341645:AAHZSiEm2kw9Zxm3kOa3ghtEY2CGZ5n3C5M")
 
+const salvadorId = 774081606
+const inesId = 1158169804
+const taniaId = 1348824388
+
+
 bot.start( (ctx) => {
 	
 	const userId = ctx.chat.id
@@ -78,17 +83,13 @@ bot.command("users", (ctx) => {
 		.then(client => {
 			return client.query('SELECT * FROM users;', (err, res) => {
 		if (err) throw err;
-			for (let row of res.rows) {
-				
-				if (listaUsers) {
-					listaUsers = listaUsers + "\n" + row.primeiro_nome + " " + row.ultimo_nome
-				
-				}
-				else {
-					listaUsers = row.primeiro_nome + " " + row.ultimo_nome
+			listaUsers = "Users: "+res.rows.length 
 			
-				}	
-
+			
+			for (let row of res.rows) {
+			
+				listaUsers = listaUsers + "\n" + row.primeiro_nome + " " + row.ultimo_nome + " - " + row.codigopostal + " - " + row.idioma
+		
 			}
 				ctx.reply(listaUsers, show_alert= true);
 				console.log(listaUsers);
@@ -97,6 +98,43 @@ bot.command("users", (ctx) => {
 	  })
 
 })
+
+
+bot.command("help", (ctx) => {
+	
+	const userId = ctx.chat.id
+	
+	pool.connect()
+		.then(client => {
+			return client.query('SELECT * FROM users where chatid = '+userId+ ';', (err, res) => {
+		if (err) throw err;
+	
+		let idioma = R.head(R.values(res.rows)).idioma
+		
+		if (idioma == 'en') {
+			bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+																		"inline_keyboard": [[
+																		{
+																			"text": "Next",
+																			"callback_data": "help 0 en"            
+																		}]]
+																		}});
+		}
+		else {
+			bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+																		"inline_keyboard": [[
+																		{
+																			"text": "Próximo",
+																			"callback_data": "help 0 pt"            
+																		}]]
+																		}});
+			
+		}
+		})})		
+})
+
+
+
 bot.command("restaurantes", (ctx) => {
 	
 	let listaRest
@@ -284,9 +322,30 @@ bot.on('message', (ctx) => {
 			
 			morada = ctx.message.text
 			updateRestInfo(from, 'morada', morada)
-				
+			
 			bot.telegram.sendMessage(from, "Obrigado e bem vindo ao NoSho.")						
 			
+			
+			pool.connect()
+				.then(client => {
+					return client.query('SELECT * FROM restaurantes where chatid = '+from+';', (err, res) => {
+				if (err) throw err;
+				
+					let nome
+					let morada
+					
+					if (R.head(R.values(res.rows))) {
+						
+						nome = R.head(R.values(res.rows)).nome
+						morada = R.head(R.values(res.rows)).morada
+					
+						bot.telegram.sendMessage(774081606, "Chef Salvador, seu deus da cozinha, um novo restaurante acabou de se registar: \n\nNome: "+nome+"\nMorada: "+morada)
+						bot.telegram.sendMessage(1158169804, "Deusa Inês, um novo restaurante acabou de se registar: \n\nNome: "+nome+"\nMorada: "+morada)
+					}
+					client.release();
+					})
+				})
+
 		}
 	}
 })
@@ -302,7 +361,77 @@ bot.action(/[0-9]/, (ctx) => {
 	command = querydata.splice(0,1)
 	console.log(command)
 	
-	if (command == "register") {
+	if (command == 'help'){
+		const userId = ctx.update.callback_query.from.id
+		const msg = ctx.update.callback_query.data.split(" ")
+		
+		if (msg[1] == 0) { 
+		
+			pool.connect()
+			.then(client => {
+				return client.query('SELECT * FROM users where chatid = '+userId+ ';', (err, res) => {
+			if (err) throw err;
+		
+			let idioma = R.head(R.values(res.rows)).idioma
+			
+			if (idioma == 'en') {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Next",
+																				"callback_data": "help 1 en"            
+																			}]]
+																			}});
+			}
+			else {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Próximo",
+																				"callback_data": "help 1 pt"            
+																			}]]
+																			}});
+				
+			}
+			})})
+		}
+		else if (msg[1] == 1) {
+			
+			pool.connect()
+			.then(client => {
+				return client.query('SELECT * FROM users where chatid = '+userId+ ';', (err, res) => {
+			if (err) throw err;
+		
+			let idioma = R.head(R.values(res.rows)).idioma
+			
+			if (idioma == 'en') {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Next",
+																				"callback_data": "help 2 en"            
+																			}]]
+																			}});
+			}
+			else {
+				bot.telegram.sendPhoto(userId, 'https://ibb.co/YpVg5hw', { "reply_markup": {
+																			"inline_keyboard": [[
+																			{
+																				"text": "Próximo",
+																				"callback_data": "help 2 pt"            
+																			}]]
+																			}});
+				
+			}
+			})})	
+			
+			
+		}
+	
+	}
+	
+	
+	else if (command == "register") {
 	
 		try {
 			ctx.deleteMessage()
@@ -639,8 +768,7 @@ bot.action(/[0-9]/, (ctx) => {
 						morada = R.head(R.values(res.rows)).morada
 					}
 					client.release();
-					})
-				})	
+
 		
 			pool.connect()
 				.then(client => {
@@ -720,7 +848,8 @@ bot.action(/[0-9]/, (ctx) => {
 				})	
 			  })
 		
-					
+					})
+				})		
 			}
 		}
 		
@@ -763,9 +892,7 @@ bot.action(/[0-9]/, (ctx) => {
 						morada = R.head(R.values(res.rows)).morada
 					}
 					client.release();
-					})	
-					
-				})	
+			
 			pool.connect()
 				.then(client => {
 					return client.query('SELECT * FROM users;', (err, res) => {
@@ -836,7 +963,10 @@ bot.action(/[0-9]/, (ctx) => {
 				}
 				bot.telegram.sendMessage( sellerId,"O seu NoSho foi publicado com sucesso.")
 				client.release();
-				})})	
+				})})
+			})	
+					
+				})				
 		
 	}
 	}
@@ -870,16 +1000,31 @@ bot.action(/[0-9]/, (ctx) => {
 		const nrPessoas = msg[msg.length-3]
 		const hora = msg[msg.length-2]		
 		const promo = msg[msg.length-1]
-		
 		const userId = ctx.update.callback_query.from.id
-		const username = ctx.update.callback_query.from.username
-		const firstName = ctx.update.callback_query.from.first_name
+
 		
 		if (currentSell) {
 		
 			if (!currentSell.alreadyBought) {
 				
 				currentSell.alreadyBought = true;
+				
+											
+				let latitude
+				let longitude
+				//buscar info restaurante sellerId
+				pool.connect()
+					.then(client => {
+						return client.query('SELECT * FROM restaurantes where chatid = '+sellerId+';', (err, res) => {
+					if (err) throw err;
+						if (R.head(R.values(res.rows))) {
+							latitude = R.head(R.values(res.rows)).latitude
+							longitude = R.head(R.values(res.rows)).longitude
+						}
+						client.release();
+
+				
+				
 				
 				let nome
 				let idioma
@@ -906,8 +1051,14 @@ bot.action(/[0-9]/, (ctx) => {
 										interval = setTimeout( () => {
 													bot.telegram.deleteMessage(userId, result.message_id)
 												},43200000)
+												
+										bot.telegram.sendLocation(userId, latitude, longitude)
+										bot.telegram.sendMessage(774081606, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)
+										bot.telegram.sendMessage(1158169804, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
 									});
-								
+									
+									
+									
 								}
 								else {
 									//Mensagem para o user que reservou
@@ -916,7 +1067,12 @@ bot.action(/[0-9]/, (ctx) => {
 											interval = setTimeout( () => {
 														bot.telegram.deleteMessage(userId, result.message_id)
 													},43200000)
+													
+											bot.telegram.sendLocation(userId, latitude, longitude)
+											bot.telegram.sendMessage(774081606, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)
+											bot.telegram.sendMessage(1158169804, "🎉O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)			
 										});
+									
 								}	
 								}
 								else {
@@ -929,8 +1085,11 @@ bot.action(/[0-9]/, (ctx) => {
 											interval = setTimeout( () => {
 														bot.telegram.deleteMessage(userId, result.message_id)
 													},43200000)
+											bot.telegram.sendLocation(userId, latitude, longitude)
+											bot.telegram.sendMessage(774081606, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)
+											bot.telegram.sendMessage(1158169804, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
 										});
-									
+										
 									}
 									else {
 										//Mensagem para o user que reservou
@@ -939,7 +1098,11 @@ bot.action(/[0-9]/, (ctx) => {
 											interval = setTimeout( () => {
 														bot.telegram.deleteMessage(userId, result.message_id)
 													},43200000)
+											bot.telegram.sendLocation(userId, latitude, longitude)
+											bot.telegram.sendMessage(774081606, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)
+											bot.telegram.sendMessage(1158169804, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
 										});
+										
 									}	
 								}	
 									//Mensagem para o restaurante
@@ -953,8 +1116,9 @@ bot.action(/[0-9]/, (ctx) => {
 									//currentSells.splice(currentSells.indexOf(sell),1)  
 						
 							})
-					});
-					
+					})
+											})
+					})	
 				}	
 			
 		else {
@@ -1035,6 +1199,7 @@ function
 			return client.query('SELECT FROM restaurantes where chatid = '+chatid+ ';', (err, res) => {
 					
 					console.log('SELECT FROM restaurantes where chatid = '+chatid+ ';')
+				
 					client.release();
 					if (R.head(R.values(res.rows))) {
 						pool.connect()
@@ -1042,7 +1207,6 @@ function
 							return client.query('UPDATE restaurantes set ' +field+ ' = \''+ value+'\' where chatid = '+chatid+ ';' , (err, res) => {
 									
 									console.log('UPDATE restaurantes set ' +field+ ' = \''+ value+'\' where chatid = '+chatid+ ';')
-									
 									client.release();
 									})
 						});	
@@ -1102,7 +1266,7 @@ function
 							return client.query('INSERT INTO restaurantes values(' +chatid+ ',\'' +nome+'\',\'' +  morada+'\');', (err, res) => {
 									
 									console.log('INSERT INTO restaurantes values(' +chatid+ ',\'' +nome+'\',\'' +  morada+'\');')
-									
+								
 									client.release();
 									})
 						});	
