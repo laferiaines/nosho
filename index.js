@@ -139,7 +139,7 @@ bot.command("help", (ctx) => {
 
 
 bot.command("restaurantes", (ctx) => {
-	console.log("Comando restaurantes")
+	console.log("Comando restaurantes ")
 	let listaRest
 
 
