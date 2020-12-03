@@ -164,7 +164,7 @@ bot.command("restaurantes", (ctx) => {
 })
 
 bot.command("nosho", (ctx) => {
-	console.log("Comando NoSho")
+	console.log("Comando NoSho ")
 	const sellerId = ctx.chat.id
 	
 	pool.connect()
