@@ -894,7 +894,7 @@ bot.action(/[0-9]/, (ctx) => {
 				
 									interval = setTimeout( () => {
 												bot.telegram.deleteMessage(row.chatid, result.message_id)
-											},900000)
+											},1500000)
 								});
 							
 						}
@@ -909,7 +909,7 @@ bot.action(/[0-9]/, (ctx) => {
 				
 									interval = setTimeout( () => {
 												bot.telegram.deleteMessage(row.chatid, result.message_id)
-											},900000)
+											},1500000)
 								});
 						}
 						}
@@ -926,7 +926,7 @@ bot.action(/[0-9]/, (ctx) => {
 				
 									interval = setTimeout( () => {
 												bot.telegram.deleteMessage(row.chatid, result.message_id)
-											},900000)
+											},1500000)
 								});
 							
 						}
@@ -941,7 +941,7 @@ bot.action(/[0-9]/, (ctx) => {
 				
 									interval = setTimeout( () => {
 												bot.telegram.deleteMessage(row.chatid, result.message_id)
-											},900000)
+											},1500000)
 								});
 						}
 					}	
@@ -1015,7 +1015,7 @@ bot.action(/[0-9]/, (ctx) => {
 							
 									interval = setTimeout( () => {
 												bot.telegram.deleteMessage(row.chatid, result.message_id)
-											},900000)
+											},1500000)
 								});
 							}
 							else {
@@ -1029,7 +1029,7 @@ bot.action(/[0-9]/, (ctx) => {
 							
 									interval = setTimeout( () => {
 												bot.telegram.deleteMessage(row.chatid, result.message_id)
-											},900000)
+											},1500000)
 								});
 							}
 						}
@@ -1046,7 +1046,7 @@ bot.action(/[0-9]/, (ctx) => {
 							
 									interval = setTimeout( () => {
 												bot.telegram.deleteMessage(row.chatid, result.message_id)
-											},900000)
+											},1500000)
 								});
 							}
 							else {
@@ -1060,7 +1060,7 @@ bot.action(/[0-9]/, (ctx) => {
 							
 									interval = setTimeout( () => {
 												bot.telegram.deleteMessage(row.chatid, result.message_id)
-											},900000)
+											},1500000)
 								});
 							}	
 						}		
