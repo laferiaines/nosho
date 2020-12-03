@@ -101,7 +101,7 @@ bot.command("users", (ctx) => {
 
 
 bot.command("help", (ctx) => {
-	
+	console.log("Comando help")
 	const userId = ctx.chat.id
 	
 	pool.connect()
@@ -139,7 +139,7 @@ bot.command("help", (ctx) => {
 
 
 bot.command("restaurantes", (ctx) => {
-	
+	console.log("Comando restaurantes")
 	let listaRest
 
 
