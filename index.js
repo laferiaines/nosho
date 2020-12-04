@@ -333,13 +333,14 @@ bot.on('message', (ctx) => {
 					return client.query('SELECT * FROM restaurantes where chatid = '+from+';', (err, res) => {
 				if (err) throw err;
 				
+				
 					let nome
-					let morada
+					
 					
 					if (R.head(R.values(res.rows))) {
 						
 						nome = R.head(R.values(res.rows)).nome
-						morada = R.head(R.values(res.rows)).morada
+						
 					
 						bot.telegram.sendMessage(774081606, "Chef Salvador, seu deus da cozinha, um novo restaurante acabou de se registar: \n\nNome: "+nome+"\nMorada: "+morada)
 						bot.telegram.sendMessage(1158169804, "Deusa Inês, um novo restaurante acabou de se registar: \n\nNome: "+nome+"\nMorada: "+morada)
