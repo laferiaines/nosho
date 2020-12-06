@@ -379,7 +379,7 @@ bot.action(/[0-9]/, (ctx) => {
 			if (err) throw err;
 		
 			let idioma = R.head(R.values(res.rows)).idioma
-			
+			client.release()
 			if (idioma == 'en') {
 				bot.telegram.sendPhoto(userId, 'https://ibb.co/nB9tdtF', { "reply_markup": {
 																			"inline_keyboard": [[
@@ -409,7 +409,7 @@ bot.action(/[0-9]/, (ctx) => {
 			if (err) throw err;
 		
 			let idioma = R.head(R.values(res.rows)).idioma
-			
+			client.release()
 			if (idioma == 'en') {
 				bot.telegram.sendPhoto(userId, 'https://ibb.co/ngtGZgp', { "reply_markup": {
 																			"inline_keyboard": [[
@@ -441,7 +441,7 @@ bot.action(/[0-9]/, (ctx) => {
 			if (err) throw err;
 		
 			let idioma = R.head(R.values(res.rows)).idioma
-			
+			client.release()
 			if (idioma == 'en') {
 				bot.telegram.sendPhoto(userId, 'https://ibb.co/bdvkBLt', { "reply_markup": {
 																			"inline_keyboard": [[
@@ -473,7 +473,7 @@ bot.action(/[0-9]/, (ctx) => {
 			if (err) throw err;
 		
 			let idioma = R.head(R.values(res.rows)).idioma
-			
+			client.release()
 			if (idioma == 'en') {
 				bot.telegram.sendPhoto(userId, 'https://ibb.co/0jFHgL8', { "reply_markup": {
 																			"inline_keyboard": [[
