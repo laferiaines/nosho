@@ -534,6 +534,7 @@ bot.action(/[0-9]/, (ctx) => {
 		}
 	}
 	
+	
 	else if (command == "register") {
 	
 		try {
