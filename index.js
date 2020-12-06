@@ -30,6 +30,8 @@ const pool = new Pool({
 })
 
 
+const PSWD = "ADMIN"
+
 let primeiroNome
 let nomeRestaurante
 let morada
@@ -62,6 +64,32 @@ bot.start( (ctx) => {
 	bot.telegram.sendMessage(userId, "Welcome to the NoSho Club. Please register to become a member. Are you a:", opts)
 })
 
+
+
+bot.command("text", (ctx) => {
+	
+		
+	console.log('Comando text')
+	let req = ctx.message.text.split(" ")
+	
+	req.splice(0,1)
+    message = req.join(" ")
+
+	pool.connect()
+		.then(client => {
+			return client.query('SELECT * FROM users;', (err, res) => {
+		if (err) throw err;
+		console.log('SELECT * FROM users;')
+		console.log(message)
+			for (let row of res.rows) {
+				bot.telegram.sendMessage(row.chatid, message)
+			}
+				client.release();
+		})	
+	  })
+	
+})
+	
 bot.command("users", (ctx) => {
 	
 	let listaUsers
@@ -375,6 +403,7 @@ bot.action(/[0-9]/, (ctx) => {
 	let command
 	command = querydata.splice(0,1)
 	console.log(command)
+	
 	
 	if (command == 'help'){
 		
@@ -1592,6 +1621,5 @@ function
 					
 		})})
 }	
-	
 
 bot.launch();
