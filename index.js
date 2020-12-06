@@ -505,7 +505,7 @@ bot.action(/[0-9]/, (ctx) => {
 			if (err) throw err;
 		
 			let idioma = R.head(R.values(res.rows)).idioma
-			
+			client.release()
 			if (idioma == 'en') {
 				bot.telegram.sendPhoto(userId, 'https://ibb.co/fnGFYhs', { "reply_markup": {
 																			"inline_keyboard": [[
@@ -525,6 +525,7 @@ bot.action(/[0-9]/, (ctx) => {
 																			}});
 				
 			}
+			
 			})})	
 			
 			
