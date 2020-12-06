@@ -44,11 +44,8 @@ let noshoIdCount = 0
 let currentSells = []
 
 
-const bot = new Telegraf("1394341645:AAHZSiEm2kw9Zxm3kOa3ghtEY2CGZ5n3C5M")
 
-const salvadorId = 774081606
-const inesId = 1158169804
-const taniaId = 1348824388
+const bot = new Telegraf("1394341645:AAHZSiEm2kw9Zxm3kOa3ghtEY2CGZ5n3C5M")
 
 
 bot.start( (ctx) => {
@@ -344,6 +341,7 @@ bot.on('message', (ctx) => {
 					
 						bot.telegram.sendMessage(774081606, "Chef Salvador, seu deus da cozinha, um novo restaurante acabou de se registar: \n\nNome: "+nome+"\nMorada: "+morada)
 						bot.telegram.sendMessage(1158169804, "Deusa Inês, um novo restaurante acabou de se registar: \n\nNome: "+nome+"\nMorada: "+morada)
+						bot.telegram.sendMessage(1348824388, "Um novo restaurante acabou de se registar: \n\nNome: "+nome+"\nMorada: "+morada)
 					}
 					client.release();
 					})
@@ -1160,6 +1158,7 @@ bot.action(/[0-9]/, (ctx) => {
 										bot.telegram.sendLocation(userId, latitude, longitude)
 										bot.telegram.sendMessage(774081606, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)
 										bot.telegram.sendMessage(1158169804, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
+										bot.telegram.sendMessage(1348824388, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
 									});
 									
 									
@@ -1176,6 +1175,7 @@ bot.action(/[0-9]/, (ctx) => {
 											bot.telegram.sendLocation(userId, latitude, longitude)
 											bot.telegram.sendMessage(774081606, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)
 											bot.telegram.sendMessage(1158169804, "🎉O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)			
+											bot.telegram.sendMessage(1348824388, "🎉O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)			
 										});
 									
 								}	
@@ -1193,6 +1193,7 @@ bot.action(/[0-9]/, (ctx) => {
 											bot.telegram.sendLocation(userId, latitude, longitude)
 											bot.telegram.sendMessage(774081606, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)
 											bot.telegram.sendMessage(1158169804, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
+											bot.telegram.sendMessage(1348824388, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
 										});
 										
 									}
@@ -1206,6 +1207,7 @@ bot.action(/[0-9]/, (ctx) => {
 											bot.telegram.sendLocation(userId, latitude, longitude)
 											bot.telegram.sendMessage(774081606, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)
 											bot.telegram.sendMessage(1158169804, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
+											bot.telegram.sendMessage(1348824388, "🎉 O NoSho do restaurante "+restaurant+ " para "+nrPessoas+" pessoas ás "+hora+" , foi ganho por: "+nome+" "+ultimoNome)		
 										});
 										
 									}	
