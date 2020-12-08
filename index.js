@@ -1029,10 +1029,19 @@ bot.action(/[0-9]/, (ctx) => {
 										.then(function (result) {
 						
 											interval = setTimeout( () => {
-														//bot.telegram.deleteMessage(row.chatid, result.message_id)
-														console.log('enviou botao')
-														//currentSell.alreadyBought = true
-													},120000)
+												//bot.telegram.deleteMessage(row.chatid, result.message_id)
+												
+												pool.connect()
+													.then(client => {
+														return client.query('UPDATE noshos set booked = 1 where id = '+noshoId+';', (err, res) => {
+															if (err) throw err;
+															console.log('UPDATE noshos set booked = 1 where id = '+noshoId+';')
+															client.release()												
+												})})
+												
+												console.log('Fazer udpdate no booked')
+											},destruct*60000)
+											
 										});
 									
 								}
@@ -1046,10 +1055,18 @@ bot.action(/[0-9]/, (ctx) => {
 										.then(function (result) {
 						
 											interval = setTimeout( () => {
-														//bot.telegram.deleteMessage(row.chatid, result.message_id)
-																console.log('enviou botao')
-														//currentSell.alreadyBought = true
-													},120000)
+												//bot.telegram.deleteMessage(row.chatid, result.message_id)
+												
+												pool.connect()
+													.then(client => {
+														return client.query('UPDATE noshos set booked = 1 where id = '+noshoId+';', (err, res) => {
+															if (err) throw err;
+															console.log('UPDATE noshos set booked = 1 where id = '+noshoId+';')
+															client.release()												
+												})})
+												
+												console.log('Fazer udpdate no booked')
+											},destruct*60000)
 										});
 								}
 								}
@@ -1065,10 +1082,18 @@ bot.action(/[0-9]/, (ctx) => {
 										.then(function (result) {
 						
 											interval = setTimeout( () => {
-														//bot.telegram.deleteMessage(row.chatid, result.message_id)
-																	console.log('enviou botao')
-														//currentSell.alreadyBought = true
-													},120000)
+												//bot.telegram.deleteMessage(row.chatid, result.message_id)
+												
+												pool.connect()
+													.then(client => {
+														return client.query('UPDATE noshos set booked = 1 where id = '+noshoId+';', (err, res) => {
+															if (err) throw err;
+															console.log('UPDATE noshos set booked = 1 where id = '+noshoId+';')
+															client.release()												
+												})})
+												
+												console.log('Fazer udpdate no booked')
+											},destruct*60000)
 										});
 									
 								}
@@ -1082,10 +1107,18 @@ bot.action(/[0-9]/, (ctx) => {
 										.then(function (result) {
 						
 											interval = setTimeout( () => {
-														//bot.telegram.deleteMessage(row.chatid, result.message_id)
-														console.log('enviou botao')
-														//currentSell.alreadyBought = true
-													},120000)
+												//bot.telegram.deleteMessage(row.chatid, result.message_id)
+												
+												pool.connect()
+													.then(client => {
+														return client.query('UPDATE noshos set booked = 1 where id = '+noshoId+';', (err, res) => {
+															if (err) throw err;
+															console.log('UPDATE noshos set booked = 1 where id = '+noshoId+';')
+															client.release()												
+												})})
+												
+												console.log('Fazer udpdate no booked')
+											},destruct*60000)
 										});
 								}
 							}	
